@@ -16,9 +16,9 @@ import urllib2
 import smtplib 
 from email.mime.text import MIMEText
 
-USERNAME="raspikedar@gmail.com"
-PASSWORD="sosswami"
-MAILTO="skmkedar@gmail.com"
+USERNAME="xyz@gmail.com"
+PASSWORD="your password"
+MAILTO="destination@gmail.com"
 
 def lcd_display(T,RH):
 	DC = 23
@@ -62,36 +62,26 @@ def main():
                  
                       RH, T = getSensorData()
                       f=urllib2.urlopen(baseURL+'&field2=%s&field1=%s'%(RH,T))
-                      print ("1")
+                      
 		      lcd_display(T,RH)
                       print("Humidity"+str(RH)+"%")
                       print("Temperature" +str(T)+"c") 
-	              msg = MIMEText('Temperature %s Humidity %s for data logger click the link https://thingspeak.com/channels/451913 ' %(T, RH)) 
-                      print("2")
+	              msg = MIMEText('Temperature %s Humidity %s for data logger click the link https://thingspeak.com/channels/451913 ' %(T, RH)))
 		      msg['Subject']='Weather Report'
-		      print("3")
                       msg['From']=USERNAME
-	              print("4")
                       msg['TO']=MAILTO
-		      print("5")
                       server = smtplib.SMTP('smtp.gmail.com',587)
-		      print("6")
                       server.ehlo_or_helo_if_needed()
-		      print("7")
-                      server.starttls()
-		      print("8")
+		      server.starttls()
+		      
                       server.ehlo_or_helo_if_needed()
-		      print("9")
+		      
                       server.login("raspikedar@gmail.com","sosswami")
-		      print("10")
-                      server.sendmail("raspikedar@gmail.com", "skmkedar@gmail.com", msg.as_string())
-		      print("11")
-                      server.close()
-		      print("12")
-                      f.close()
-		      print("13")
-                      sleep(15)
-		      print("14")
+		      server.sendmail("raspikedar@gmail.com", "skmkedar@gmail.com", msg.as_string())
+		      server.close()
+		      f.close()
+		      sleep(15)
+		      
 
               except:   
                       print ('Exiting.')
